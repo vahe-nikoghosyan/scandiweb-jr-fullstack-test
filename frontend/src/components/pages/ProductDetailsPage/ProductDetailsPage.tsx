@@ -43,7 +43,11 @@ function ProductDetailsPage() {
             selectedAttributes={selectedAttributes}
             onAttributeChange={handleAttributeChange}
           />
-          <AddToCartButton disabled={!canAddToCart} />
+          <AddToCartButton
+            disabled={!canAddToCart}
+            product={product}
+            selectedAttributes={selectedAttributes}
+          />
           <ProductDescription />
         </section>
       </div>

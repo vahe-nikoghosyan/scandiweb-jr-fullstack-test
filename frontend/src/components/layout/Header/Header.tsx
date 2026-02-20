@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
+import { useCart } from '../../../context/CartContext'
 import CartOverlay from '../CartOverlay/CartOverlay'
 import CartButton from './CartButton'
 import { useCategories } from '../../../hooks/useCategories'
@@ -7,7 +8,15 @@ import styles from './Header.module.css'
 
 function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false)
+  const { openCartOverlayRef } = useCart()
   const { categories, loading, error } = useCategories()
+
+  useEffect(() => {
+    openCartOverlayRef.current = () => setIsCartOpen(true)
+    return () => {
+      openCartOverlayRef.current = null
+    }
+  }, [openCartOverlayRef])
   const { pathname } = useLocation()
   const { id: categoryParam } = useParams<{ id: string }>()
   const activeCategoryId = pathname === '/' ? 'all' : categoryParam ?? null

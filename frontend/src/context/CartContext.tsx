@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useMemo, type ReactNode } from 'react'
+import { createContext, useCallback, useContext, useMemo, useRef, type MutableRefObject, type ReactNode } from 'react'
 import type { CartItem, SelectedAttribute } from '../types/CartItem'
 import type { Product } from '../types/Product'
 import { useLocalStorage } from '../hooks/useLocalStorage'
@@ -19,6 +19,8 @@ interface CartContextValue {
   clearCart: () => void
   itemCount: number
   total: number
+  openCartOverlayRef: MutableRefObject<(() => void) | null>
+  openCartOverlay: () => void
 }
 
 const CartContext = createContext<CartContextValue | null>(null)
@@ -71,6 +73,11 @@ export function CartProvider({ children }: CartProviderProps) {
     setCartItems([])
   }, [])
 
+  const openCartOverlayRef = useRef<(() => void) | null>(null)
+  const openCartOverlay = useCallback(() => {
+    openCartOverlayRef.current?.()
+  }, [])
+
   const value = useMemo<CartContextValue>(
     () => ({
       cartItems,
@@ -80,8 +87,10 @@ export function CartProvider({ children }: CartProviderProps) {
       clearCart,
       itemCount: getItemCount(cartItems),
       total: calculateTotal(cartItems),
+      openCartOverlayRef,
+      openCartOverlay,
     }),
-    [cartItems, addToCart, removeFromCart, updateQuantity, clearCart]
+    [cartItems, addToCart, removeFromCart, updateQuantity, clearCart, openCartOverlay]
   )
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
