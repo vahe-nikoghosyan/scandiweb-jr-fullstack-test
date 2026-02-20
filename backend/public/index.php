@@ -4,6 +4,20 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+// GraphQL endpoint: POST /graphql
+$path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && (str_ends_with($path, '/graphql') || $path === 'graphql')) {
+    header('Content-Type: application/json');
+    $raw = file_get_contents('php://input') ?: '{}';
+    $input = json_decode($raw, true) ?? [];
+    $query = (string) ($input['query'] ?? '');
+    $operationName = isset($input['operationName']) ? (string) $input['operationName'] : null;
+    $variables = is_array($input['variables'] ?? null) ? $input['variables'] : [];
+    $result = \App\Infrastructure\GraphQL\GraphQLHandler::handle($query, $operationName, $variables);
+    echo json_encode($result);
+    return;
+}
+
 use App\Domain\Model\Attribute\AttributeItem;
 use App\Domain\Model\Attribute\SwatchAttribute;
 use App\Domain\Model\Attribute\TextAttribute;
