@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useCart } from '../../../context/CartContext'
 import type { Product } from '../../../types/Product'
 import { formatPrice } from '../../../utils/priceFormatter'
 import styles from './ProductCard.module.css'
@@ -15,12 +16,19 @@ interface ProductCardProps {
 }
 
 function ProductCard({ product }: ProductCardProps) {
+  const { addToCart } = useCart()
   const imageUrl = product.gallery[0] ?? ''
   const price = product.prices[0]
   const priceLabel = price
     ? formatPrice(price.amount, price.currency.symbol)
     : ''
   const testId = `product-${toKebabCase(product.name)}`
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    addToCart(product, 1, [])
+  }
 
   return (
     <article
@@ -42,6 +50,14 @@ function ProductCard({ product }: ProductCardProps) {
         <h2 className={styles.name}>{product.name}</h2>
         <p className={styles.price}>{priceLabel}</p>
       </Link>
+      <button
+        type="button"
+        className={styles.addButton}
+        onClick={handleAddToCart}
+        data-testid="add-to-cart"
+      >
+        Add to cart
+      </button>
     </article>
   )
 }

@@ -37,6 +37,7 @@ export function CartProvider({ children }: CartProviderProps) {
   const addToCart = useCallback(
     (product: Product, quantity: number, selectedAttributes: SelectedAttribute[]) => {
       setCartItems((prev) => {
+        // Check if item exists (same product + attributes) via generateCartItemId uniqueness
         const existing = findCartItem(prev, product.id, selectedAttributes)
         if (existing) {
           const id = existing.id
@@ -44,6 +45,7 @@ export function CartProvider({ children }: CartProviderProps) {
             item.id === id ? { ...item, quantity: item.quantity + quantity } : item
           )
         }
+        // If not: add new item
         const id = generateCartItemId(product.id, selectedAttributes)
         return [...prev, { id, product, quantity, selectedAttributes }]
       })

@@ -47,8 +47,26 @@
 
 .price {
   margin: 0;
-  padding: 0.25rem 1rem 1rem;
+  padding: 0.25rem 1rem 0.5rem;
   font-size: 1rem;
   font-weight: 600;
   color: #08060d;
+}
+
+.addButton {
+  display: block;
+  width: 100%;
+  margin: 0 1rem 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+  background: #08060d;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  background: #333;
 }
