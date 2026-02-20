@@ -1,10 +1,15 @@
+import { Routes, Route } from 'react-router-dom'
+import ProductListPage from './pages/ProductListPage'
+import ProductDetailsPage from './pages/ProductDetailsPage'
 import './App.css'
 
 function App() {
   return (
-    <div>
-      <h1>Vite + React + TS</h1>
-    </div>
+    <Routes>
+      <Route path="/" element={<ProductListPage />} />
+      <Route path="/category/:id" element={<ProductListPage />} />
+      <Route path="/product/:id" element={<ProductDetailsPage />} />
+    </Routes>
   )
 }
 
