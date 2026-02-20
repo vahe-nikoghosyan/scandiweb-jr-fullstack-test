@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\GraphQL\Type;
 
-use App\Domain\Model\Product\ConfigurableProduct;
+use App\Infrastructure\Database\Connection;
+use App\Infrastructure\GraphQL\Resolver\AttributeResolver;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 
@@ -53,10 +54,8 @@ final class ProductType
                     'attributes' => [
                         'type' => Type::listOf(Type::nonNull(AttributeType::get())),
                         'resolve' => static function (object $product): array {
-                            if ($product instanceof ConfigurableProduct) {
-                                return []; // Attribute definitions to be wired from repo later
-                            }
-                            return [];
+                            $resolver = new AttributeResolver(Connection::getInstance());
+                            return $resolver->resolve($product);
                         },
                     ],
                 ],
