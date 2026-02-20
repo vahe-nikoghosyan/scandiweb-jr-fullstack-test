@@ -8,5 +8,6 @@ use App\Domain\Model\Order;
 
 interface OrderRepositoryInterface
 {
-    public function save(Order $order): bool;
+    /** Returns the saved order ID (new or existing). */
+    public function save(Order $order): int;
 }
