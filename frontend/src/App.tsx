@@ -1,15 +1,19 @@
 import { Routes, Route } from 'react-router-dom'
+import Header from './components/layout/Header/Header'
 import ProductListPage from './pages/ProductListPage'
 import ProductDetailsPage from './pages/ProductDetailsPage'
 import './App.css'
 
 function App() {
   return (
-    <Routes>
+    <>
+      <Header />
+      <Routes>
       <Route path="/" element={<ProductListPage />} />
       <Route path="/category/:id" element={<ProductListPage />} />
       <Route path="/product/:id" element={<ProductDetailsPage />} />
-    </Routes>
+      </Routes>
+    </>
   )
 }
 

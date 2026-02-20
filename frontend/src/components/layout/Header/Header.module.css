@@ -1,0 +1,59 @@
+.header {
+  border-bottom: 1px solid #e5e4e7;
+  background: #fff;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: #08060d;
+}
+
+.logo:hover {
+  color: #333;
+}
+
+.categories {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.categoryLink {
+  text-decoration: none;
+  color: #6b6375;
+  font-weight: 500;
+}
+
+.categoryLink:hover {
+  color: #08060d;
+}
+
+.cartButton {
+  margin-left: auto;
+  padding: 0.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.cartButton:hover {
+  background: #f4f3ec;
+}
+
+.cartIcon {
+  font-size: 1.25rem;
+}
