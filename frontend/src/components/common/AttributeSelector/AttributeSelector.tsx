@@ -24,6 +24,7 @@ function AttributeSelector({ attribute, selectedValue, onSelect }: AttributeSele
     <div
       className={styles.root}
       data-testid={`product-attribute-${kebab}`}
+      data-selected={selectedValue ?? ''}
       role="group"
       aria-label={attribute.name}
     >

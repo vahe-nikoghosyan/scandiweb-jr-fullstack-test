@@ -1,19 +1,14 @@
-import { useState } from 'react'
 import AttributeSelector from '../../common/AttributeSelector/AttributeSelector'
 import type { Product } from '../../../types/Product'
 import styles from './ProductInfo.module.css'
 
 interface ProductInfoProps {
   product: Product
+  selectedAttributes: Map<string, string>
+  onAttributeChange: (attrId: string, value: string) => void
 }
 
-function ProductInfo({ product }: ProductInfoProps) {
-  const [selectedAttributes, setSelectedAttributes] = useState<Record<string, string>>({})
-
-  const handleSelect = (attrId: string, value: string) => {
-    setSelectedAttributes((prev) => ({ ...prev, [attrId]: value }))
-  }
-
+function ProductInfo({ product, selectedAttributes, onAttributeChange }: ProductInfoProps) {
   const attributes = product.attributes ?? []
 
   return (
@@ -23,8 +18,8 @@ function ProductInfo({ product }: ProductInfoProps) {
         <AttributeSelector
           key={attr.id}
           attribute={attr}
-          selectedValue={selectedAttributes[attr.id]}
-          onSelect={(value) => handleSelect(attr.id, value)}
+          selectedValue={selectedAttributes.get(attr.id)}
+          onSelect={(value) => onAttributeChange(attr.id, value)}
         />
       ))}
     </div>
