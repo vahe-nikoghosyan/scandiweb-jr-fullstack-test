@@ -1,21 +1,24 @@
-import { useQuery, gql } from '@apollo/client'
-
-const TEST_QUERY = gql`
-  query Test {
-    test
-  }
-`
+import { useParams } from 'react-router-dom'
+import { useProducts } from '../hooks/useProducts'
+import ProductCard from '../components/common/ProductCard/ProductCard'
+import styles from './ProductListPage.module.css'
 
 function ProductListPage() {
-  const { data, loading, error } = useQuery(TEST_QUERY)
-  if (data) console.log('GraphQL test response:', data)
-  if (error) console.error('GraphQL error:', error)
+  const { id: categoryId } = useParams<{ id: string }>()
+  const { products, loading, error } = useProducts(categoryId)
+
+  if (loading) return <div className={styles.wrap}>Loading…</div>
+  if (error) return <div className={styles.wrap}>Error loading products.</div>
 
   return (
-    <div>
-      <div>Product List</div>
-      {loading && <p>Loading…</p>}
-      {data?.test != null && <p data-testid="graphql-test">Backend: {data.test}</p>}
+    <div className={styles.wrap}>
+      <ul className={styles.grid}>
+        {products.map((p) => (
+          <li key={p.id}>
+            <ProductCard product={p} />
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
