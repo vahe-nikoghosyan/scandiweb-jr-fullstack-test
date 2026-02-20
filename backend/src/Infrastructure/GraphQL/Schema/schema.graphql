@@ -5,6 +5,30 @@ type Query {
   product(id: ID!): Product
 }
 
+type Mutation {
+  placeOrder(input: OrderInput!): OrderResult!
+}
+
+input OrderItemInput {
+  productId: ID!
+  quantity: Int!
+  selectedAttributes: [SelectedAttributeInput!]
+}
+
+input SelectedAttributeInput {
+  id: ID!
+  value: String!
+}
+
+input OrderInput {
+  items: [OrderItemInput!]!
+}
+
+type OrderResult {
+  success: Boolean!
+  orderId: ID
+}
+
 type Category {
   id: ID!
   name: String!
