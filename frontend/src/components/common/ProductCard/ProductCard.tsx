@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { Product } from '../../../types/Product'
+import { formatPrice } from '../../../utils/priceFormatter'
 import styles from './ProductCard.module.css'
 
 function toKebabCase(str: string): string {
@@ -17,7 +18,7 @@ function ProductCard({ product }: ProductCardProps) {
   const imageUrl = product.gallery[0] ?? ''
   const price = product.prices[0]
   const priceLabel = price
-    ? `${price.currency.symbol}${price.amount.toFixed(2)}`
+    ? formatPrice(price.amount, price.currency.symbol)
     : ''
   const testId = `product-${toKebabCase(product.name)}`
 
