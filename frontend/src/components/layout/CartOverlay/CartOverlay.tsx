@@ -1,4 +1,5 @@
 import { useCart } from '../../../context/CartContext'
+import { usePlaceOrder } from '../../../hooks/usePlaceOrder'
 import CartItem from './CartItem'
 import CartTotal from './CartTotal'
 import styles from './CartOverlay.module.css'
@@ -9,7 +10,16 @@ interface CartOverlayProps {
 }
 
 function CartOverlay({ isOpen, onClose }: CartOverlayProps) {
-  const { cartItems } = useCart()
+  const { cartItems, clearCart } = useCart()
+  const { placeOrder, loading } = usePlaceOrder()
+  const handlePlaceOrder = async () => {
+    const result = await placeOrder()
+    if (result?.success) {
+      clearCart()
+      window.alert('Order placed successfully!')
+      onClose()
+    }
+  }
 
   if (!isOpen) return null
 
@@ -46,10 +56,11 @@ function CartOverlay({ isOpen, onClose }: CartOverlayProps) {
           <button
             type="button"
             className={styles.placeOrder}
-            disabled={cartItems.length === 0}
+            disabled={cartItems.length === 0 || loading}
+            onClick={handlePlaceOrder}
             data-testid="cart-overlay-place-order"
           >
-            Place order
+            {loading ? 'Placing order…' : 'Place order'}
           </button>
         </div>
       </aside>
