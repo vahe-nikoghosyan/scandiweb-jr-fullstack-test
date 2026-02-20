@@ -15,6 +15,7 @@ use App\Domain\Model\Product\SimpleProduct;
 use App\Domain\Factory\AttributeFactory;
 use App\Domain\Factory\ProductFactory;
 use App\Infrastructure\Database\Connection;
+use App\Infrastructure\Repository\MySQLProductRepository;
 
 $currency = new Currency('USD', '$');
 $price = new Price(19.99, $currency);
@@ -73,8 +74,12 @@ echo "AttributeFactory (type=text): " . get_class($textAttrFromFactory) . "\n";
 echo "AttributeFactory (type=swatch): " . get_class($swatchAttrFromFactory) . "\n";
 
 try {
-    Connection::getInstance()->getPdo();
+    $connection = Connection::getInstance();
+    $connection->getPdo();
     echo "\nConnected";
+    $repo = new MySQLProductRepository($connection);
+    $products = $repo->findAll();
+    var_dump($products); // Should show array (empty for now)
 } catch (PDOException $e) {
     echo "\nConnection error: " . $e->getMessage();
 }
