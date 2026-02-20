@@ -16,6 +16,14 @@
   color: inherit;
 }
 
+.imageArea {
+  position: relative;
+}
+
+.imageArea:hover .quickShop {
+  opacity: 1;
+}
+
 .imageWrap {
   position: relative;
   aspect-ratio: 1;

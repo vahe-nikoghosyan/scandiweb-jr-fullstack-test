@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useCart } from '../../../context/CartContext'
 import type { Product } from '../../../types/Product'
 import { formatPrice } from '../../../utils/priceFormatter'
+import QuickShopButton from './QuickShopButton'
 import styles from './ProductCard.module.css'
 
 function toKebabCase(str: string): string {
@@ -38,20 +39,28 @@ function ProductCard({ product }: ProductCardProps) {
       data-testid={testId}
     >
       <Link to={`/product/${product.id}`} className={styles.link}>
-        <div className={inStock ? styles.imageWrap : styles.imageWrapOutOfStock}>
-          {imageUrl ? (
-            <img
-              src={imageUrl}
-              alt={product.name}
-              className={styles.image}
+        <div className={styles.imageArea}>
+          <div className={inStock ? styles.imageWrap : styles.imageWrapOutOfStock}>
+            {imageUrl ? (
+              <img
+                src={imageUrl}
+                alt={product.name}
+                className={styles.image}
+              />
+            ) : (
+              <div className={styles.placeholder}>No image</div>
+            )}
+            {!inStock && (
+              <span className={styles.outOfStockOverlay} data-testid="out-of-stock-overlay">
+                OUT OF STOCK
+              </span>
+            )}
+          </div>
+          {inStock && (
+            <QuickShopButton
+              product={product}
+              wrapperClassName={styles.quickShop}
             />
-          ) : (
-            <div className={styles.placeholder}>No image</div>
-          )}
-          {!inStock && (
-            <span className={styles.outOfStockOverlay} data-testid="out-of-stock-overlay">
-              OUT OF STOCK
-            </span>
           )}
         </div>
         <h2 className={styles.name}>{product.name}</h2>
