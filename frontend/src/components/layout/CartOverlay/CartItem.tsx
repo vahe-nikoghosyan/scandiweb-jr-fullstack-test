@@ -1,6 +1,7 @@
 import { useCart } from '../../../context/CartContext'
 import type { CartItem as CartItemType } from '../../../types/CartItem'
 import { formatPrice } from '../../../utils/priceFormatter'
+import { getSwatchStyle, toKebab } from '../../../utils/attributeHelpers'
 import styles from './CartItem.module.css'
 
 interface CartItemProps {
@@ -16,11 +17,15 @@ function CartItem({ item }: CartItemProps) {
     ? formatPrice(price.amount, price.currency.symbol)
     : ''
 
-  const getAttributeLabel = (attrId: string, value: string): string => {
+  const getAttributeInfo = (attrId: string, value: string) => {
     const attr = product.attributes?.find((a) => a.id === attrId)
-    if (!attr) return value
+    if (!attr) return { name: attrId, displayValue: value, type: 'text' }
     const itemOption = attr.items.find((i) => i.value === value)
-    return itemOption ? `${attr.name}: ${itemOption.displayValue}` : `${attr.name}: ${value}`
+    return {
+      name: attr.name,
+      displayValue: itemOption?.displayValue ?? value,
+      type: attr.type?.toLowerCase() ?? 'text',
+    }
   }
 
   return (
@@ -34,17 +39,42 @@ function CartItem({ item }: CartItemProps) {
             {priceLabel}
           </p>
           {item.selectedAttributes.length > 0 && (
-            <ul className={styles.attributes} aria-label="Selected attributes">
-              {item.selectedAttributes.map((sel) => (
-                <li
-                  key={`${sel.id}-${sel.value}`}
-                  className={styles.attr}
-                  data-testid="cart-item-attribute"
-                >
-                  {getAttributeLabel(sel.id, sel.value)}
-                </li>
-              ))}
-            </ul>
+            <div className={styles.attributes} aria-label="Selected attributes">
+              {item.selectedAttributes.map((sel) => {
+                const { name, displayValue, type } = getAttributeInfo(sel.id, sel.value)
+                const kebab = toKebab(name)
+                const isSwatch = type === 'swatch'
+                return (
+                  <div
+                    key={`${sel.id}-${sel.value}`}
+                    className={styles.attrRow}
+                    data-testid={`cart-item-attribute-${kebab}`}
+                  >
+                    <span className={styles.attrName}>{name}:</span>
+                    {isSwatch ? (
+                      <span
+                        className={styles.attrSwatch}
+                        style={getSwatchStyle(displayValue)}
+                        data-testid={`cart-item-attribute-${kebab}-value`}
+                        title={displayValue}
+                        aria-hidden
+                      >
+                        {displayValue.toLowerCase() === 'white' && (
+                          <span className={styles.swatchBorder} aria-hidden />
+                        )}
+                      </span>
+                    ) : (
+                      <span
+                        className={styles.attrValue}
+                        data-testid={`cart-item-attribute-${kebab}-value`}
+                      >
+                        {displayValue}
+                      </span>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
           )}
         </div>
         <div className={styles.quantityBlock}>

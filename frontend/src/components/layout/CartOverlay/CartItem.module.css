@@ -35,15 +35,51 @@
 }
 
 .attributes {
-  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
   margin: 0;
   padding: 0;
   font-size: 0.8rem;
-  color: #6b6375;
+  color: #08060d;
 }
 
-.attr {
+.attrRow {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
   margin-top: 0.15rem;
+}
+
+.attrRow:first-child {
+  margin-top: 0;
+}
+
+.attrName {
+  color: #6b6375;
+  font-weight: 500;
+}
+
+.attrValue {
+  font-weight: 500;
+}
+
+.attrSwatch {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 2px;
+  border: 1px solid #e5e4e7;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.swatchBorder {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #ddd;
+  border-radius: inherit;
+  pointer-events: none;
 }
 
 .quantityBlock {
