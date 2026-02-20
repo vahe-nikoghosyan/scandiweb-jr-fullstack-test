@@ -7,20 +7,21 @@
 .btn,
 .btnActive {
   min-width: 2.5rem;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #08060d;
-  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-primary);
+  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
-  background: #fff;
-  color: #08060d;
+  background: var(--color-background);
+  color: var(--color-primary);
+  transition: background 0.2s, color 0.2s;
 }
 
 .btn:hover {
-  background: #f4f3ec;
+  background: var(--color-background-alt);
 }
 
 .btnActive {
-  background: #08060d;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-background);
 }

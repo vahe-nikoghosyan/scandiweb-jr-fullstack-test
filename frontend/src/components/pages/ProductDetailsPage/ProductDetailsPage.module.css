@@ -1,19 +1,23 @@
 .wrap {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 2rem 1.5rem;
 }
 
 .layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 3rem;
   align-items: start;
 }
 
 @media (max-width: 768px) {
+  .wrap {
+    padding: 1.5rem 1rem;
+  }
   .layout {
     grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }
 

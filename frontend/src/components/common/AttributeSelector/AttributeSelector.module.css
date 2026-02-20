@@ -1,11 +1,13 @@
 .root {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .label {
   display: block;
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   margin-bottom: 0.5rem;
-  color: #08060d;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
