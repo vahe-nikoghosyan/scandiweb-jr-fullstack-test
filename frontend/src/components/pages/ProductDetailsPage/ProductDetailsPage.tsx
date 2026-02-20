@@ -24,9 +24,9 @@ function ProductDetailsPage() {
   if (error) return <div className={styles.wrap}>Error loading product.</div>;
   if (!product) return <div className={styles.wrap}>Product not found.</div>;
 
-  const canAddToCart = (product.attributes ?? []).every((attr) =>
-    selectedAttributes.has(attr.id)
-  );
+  const canAddToCart =
+    product.inStock &&
+    (product.attributes ?? []).every((attr) => selectedAttributes.has(attr.id));
 
   return (
     <div className={styles.wrap}>

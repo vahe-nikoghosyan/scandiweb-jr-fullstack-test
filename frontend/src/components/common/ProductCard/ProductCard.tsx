@@ -23,10 +23,12 @@ function ProductCard({ product }: ProductCardProps) {
     ? formatPrice(price.amount, price.currency.symbol)
     : ''
   const testId = `product-${toKebabCase(product.name)}`
+  const inStock = product.inStock
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
+    if (!inStock) return
     addToCart(product, 1, [])
   }
 
@@ -36,7 +38,7 @@ function ProductCard({ product }: ProductCardProps) {
       data-testid={testId}
     >
       <Link to={`/product/${product.id}`} className={styles.link}>
-        <div className={styles.imageWrap}>
+        <div className={inStock ? styles.imageWrap : styles.imageWrapOutOfStock}>
           {imageUrl ? (
             <img
               src={imageUrl}
@@ -46,18 +48,25 @@ function ProductCard({ product }: ProductCardProps) {
           ) : (
             <div className={styles.placeholder}>No image</div>
           )}
+          {!inStock && (
+            <span className={styles.outOfStockOverlay} data-testid="out-of-stock-overlay">
+              OUT OF STOCK
+            </span>
+          )}
         </div>
         <h2 className={styles.name}>{product.name}</h2>
         <p className={styles.price}>{priceLabel}</p>
       </Link>
-      <button
-        type="button"
-        className={styles.addButton}
-        onClick={handleAddToCart}
-        data-testid="add-to-cart"
-      >
-        Add to cart
-      </button>
+      {inStock && (
+        <button
+          type="button"
+          className={styles.addButton}
+          onClick={handleAddToCart}
+          data-testid="add-to-cart"
+        >
+          Add to cart
+        </button>
+      )}
     </article>
   )
 }
