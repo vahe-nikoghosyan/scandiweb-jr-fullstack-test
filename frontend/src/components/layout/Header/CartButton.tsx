@@ -1,7 +1,11 @@
 import { useCart } from '../../../context/CartContext'
 import styles from './CartButton.module.css'
 
-function CartButton() {
+interface CartButtonProps {
+  onCartClick?: () => void
+}
+
+function CartButton({ onCartClick }: CartButtonProps) {
   const { itemCount } = useCart()
   const label = itemCount === 1 ? '1 Item' : `${itemCount} Items`
 
@@ -12,6 +16,7 @@ function CartButton() {
       aria-label="Cart"
       title="Cart"
       data-testid="cart-btn"
+      onClick={onCartClick}
     >
       <span className={styles.cartIcon} aria-hidden>
         🛒
