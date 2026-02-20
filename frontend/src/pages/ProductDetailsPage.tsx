@@ -1,5 +1,1 @@
-function ProductDetailsPage() {
-  return <div>Product Details</div>
-}
-
-export default ProductDetailsPage
+export { default } from './components/pages/ProductDetailsPage/ProductDetailsPage'
