@@ -48,7 +48,7 @@ function ProductDetailsPage() {
             product={product}
             selectedAttributes={selectedAttributes}
           />
-          <ProductDescription />
+          <ProductDescription product={product} />
         </section>
       </div>
     </div>
