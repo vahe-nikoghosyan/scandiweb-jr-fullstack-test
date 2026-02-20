@@ -1,4 +1,5 @@
 import { useCart } from '../../../context/CartContext'
+import CartItem from './CartItem'
 import styles from './CartOverlay.module.css'
 
 interface CartOverlayProps {
@@ -36,12 +37,7 @@ function CartOverlay({ isOpen, onClose }: CartOverlayProps) {
           {cartItems.length === 0 ? (
             <li className={styles.empty}>Your cart is empty.</li>
           ) : (
-            cartItems.map((item) => (
-              <li key={item.id} className={styles.itemPlaceholder}>
-                {/* Placeholder: full item UI later */}
-                {item.product.name} × {item.quantity}
-              </li>
-            ))
+            cartItems.map((item) => <CartItem key={item.id} item={item} />)
           )}
         </ul>
         <div className={styles.footer}>
