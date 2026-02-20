@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
+import { useCategories } from '../../../hooks/useCategories'
 import styles from './Header.module.css'
 
-const CATEGORIES = [
-  { id: 'all', name: 'All' },
-  { id: 'clothes', name: 'Clothes' },
-  { id: 'tech', name: 'Tech' },
-]
-
 function Header() {
+  const { categories, loading, error } = useCategories()
+  const { pathname } = useLocation()
+  const { id: categoryParam } = useParams<{ id: string }>()
+  const activeCategoryId = pathname === '/' ? 'all' : categoryParam ?? null
+
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
@@ -15,16 +15,22 @@ function Header() {
           Scandi
         </Link>
         <ul className={styles.categories}>
-          {CATEGORIES.map((cat) => (
-            <li key={cat.id}>
-              <Link
-                to={cat.id === 'all' ? '/' : `/category/${cat.id}`}
-                className={styles.categoryLink}
-              >
-                {cat.name}
-              </Link>
-            </li>
-          ))}
+          {loading && <li className={styles.categoryMuted}>Loading…</li>}
+          {error && <li className={styles.categoryMuted}>Error loading categories</li>}
+          {!loading && !error && categories.map((cat) => {
+            const isActive = activeCategoryId === cat.id
+            return (
+              <li key={cat.id}>
+                <Link
+                  to={cat.id === 'all' ? '/' : `/category/${cat.id}`}
+                  className={isActive ? styles.categoryLinkActive : styles.categoryLink}
+                  data-testid={isActive ? 'active-category-link' : 'category-link'}
+                >
+                  {cat.name}
+                </Link>
+              </li>
+            )
+          })}
         </ul>
         <button
           type="button"

@@ -41,6 +41,17 @@
   color: #08060d;
 }
 
+.categoryLinkActive {
+  text-decoration: none;
+  font-weight: 600;
+  color: #08060d;
+}
+
+.categoryMuted {
+  color: #6b6375;
+  font-size: 0.9rem;
+}
+
 .cartButton {
   margin-left: auto;
   padding: 0.5rem;
