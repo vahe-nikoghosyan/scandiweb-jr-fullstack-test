@@ -1,0 +1,15 @@
+.root {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.label {
+  color: #08060d;
+}
+
+.value {
+  color: #08060d;
+}

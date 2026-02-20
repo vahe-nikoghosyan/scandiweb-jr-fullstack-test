@@ -1,5 +1,6 @@
 import { useCart } from '../../../context/CartContext'
 import CartItem from './CartItem'
+import CartTotal from './CartTotal'
 import styles from './CartOverlay.module.css'
 
 interface CartOverlayProps {
@@ -8,7 +9,7 @@ interface CartOverlayProps {
 }
 
 function CartOverlay({ isOpen, onClose }: CartOverlayProps) {
-  const { cartItems, total } = useCart()
+  const { cartItems } = useCart()
 
   if (!isOpen) return null
 
@@ -41,16 +42,7 @@ function CartOverlay({ isOpen, onClose }: CartOverlayProps) {
           )}
         </ul>
         <div className={styles.footer}>
-          <div className={styles.total}>
-            <span>Total:</span>
-            <span data-testid="cart-overlay-total">
-              {new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                minimumFractionDigits: 2,
-              }).format(total)}
-            </span>
-          </div>
+          <CartTotal />
           <button
             type="button"
             className={styles.placeOrder}
