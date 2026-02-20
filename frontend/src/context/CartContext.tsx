@@ -1,19 +1,15 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-  type ReactNode,
-} from 'react'
+import { createContext, useCallback, useContext, useMemo, type ReactNode } from 'react'
 import type { CartItem, SelectedAttribute } from '../types/CartItem'
 import type { Product } from '../types/Product'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 import {
   calculateTotal,
   findCartItem,
   generateCartItemId,
   getItemCount,
 } from '../utils/cartHelpers'
+
+const CART_STORAGE_KEY = 'cart'
 
 interface CartContextValue {
   cartItems: CartItem[]
@@ -32,7 +28,11 @@ interface CartProviderProps {
 }
 
 export function CartProvider({ children }: CartProviderProps) {
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
+    CART_STORAGE_KEY,
+    [],
+    (parsed) => (Array.isArray(parsed) ? parsed : [])
+  )
 
   const addToCart = useCallback(
     (product: Product, quantity: number, selectedAttributes: SelectedAttribute[]) => {
