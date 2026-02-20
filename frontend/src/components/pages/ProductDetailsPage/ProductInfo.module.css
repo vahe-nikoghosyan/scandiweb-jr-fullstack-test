@@ -1,0 +1,11 @@
+.root {
+  margin-bottom: 1.5rem;
+}
+
+.name {
+  margin: 0 0 1rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #08060d;
+}

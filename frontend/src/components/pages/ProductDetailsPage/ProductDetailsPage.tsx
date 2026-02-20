@@ -21,7 +21,7 @@ function ProductDetailsPage() {
           <ImageGallery images={product.gallery} alt={product.name} />
         </section>
         <section className={styles.details}>
-          <ProductInfo />
+          <ProductInfo product={product} />
           <AddToCartButton />
           <ProductDescription />
         </section>

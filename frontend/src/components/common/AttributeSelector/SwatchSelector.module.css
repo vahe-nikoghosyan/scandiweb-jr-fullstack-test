@@ -1,0 +1,38 @@
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.swatch,
+.swatchActive {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+}
+
+.swatch {
+  border-color: #e5e4e7;
+}
+
+.swatch:hover {
+  border-color: #6b6375;
+}
+
+.swatchActive {
+  border-color: #08060d;
+  outline: 1px solid #08060d;
+  outline-offset: 2px;
+}
+
+.border {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #ddd;
+  border-radius: inherit;
+  pointer-events: none;
+}
