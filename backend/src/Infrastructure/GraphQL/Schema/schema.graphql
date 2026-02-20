@@ -2,6 +2,7 @@ type Query {
   test: String
   categories: [Category!]!
   products: [Product!]!
+  product(id: ID!): Product
 }
 
 type Category {

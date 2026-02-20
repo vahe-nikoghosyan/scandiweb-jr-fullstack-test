@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace App\Infrastructure\GraphQL;
 
 use App\Application\Service\CategoryService;
+use App\Application\Service\ProductService;
 use App\Infrastructure\Database\Connection;
 use App\Infrastructure\GraphQL\Resolver\CategoryResolver;
+use App\Infrastructure\GraphQL\Resolver\ProductResolver;
 use App\Infrastructure\GraphQL\Type\CategoryType;
 use App\Infrastructure\GraphQL\Type\ProductType;
 use App\Infrastructure\Repository\MySQLCategoryRepository;
+use App\Infrastructure\Repository\MySQLProductRepository;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Schema;
@@ -53,7 +56,26 @@ final class TypeRegistry
                 ],
                 'products' => [
                     'type' => Type::nonNull(Type::listOf(Type::nonNull(ProductType::get()))),
-                    'resolve' => static fn (): array => [],
+                    'resolve' => static function (): array {
+                        $connection = Connection::getInstance();
+                        $repository = new MySQLProductRepository($connection);
+                        $service = new ProductService($repository);
+                        $resolver = new ProductResolver($service);
+                        return $resolver->getProducts();
+                    },
+                ],
+                'product' => [
+                    'type' => ProductType::get(),
+                    'args' => [
+                        'id' => ['type' => Type::nonNull(Type::id())],
+                    ],
+                    'resolve' => static function (?object $rootValue, array $args): ?object {
+                        $connection = Connection::getInstance();
+                        $repository = new MySQLProductRepository($connection);
+                        $service = new ProductService($repository);
+                        $resolver = new ProductResolver($service);
+                        return $resolver->getProductById((string) $args['id']);
+                    },
                 ],
             ],
         ]);
