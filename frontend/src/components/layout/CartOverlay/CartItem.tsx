@@ -8,7 +8,7 @@ interface CartItemProps {
 }
 
 function CartItem({ item }: CartItemProps) {
-  const { updateQuantity } = useCart()
+  const { updateQuantity, removeFromCart } = useCart()
   const { product, quantity } = item
   const imageUrl = product.gallery[0] ?? ''
   const price = product.prices[0]
@@ -51,9 +51,13 @@ function CartItem({ item }: CartItemProps) {
           <button
             type="button"
             className={styles.qtyBtn}
-            onClick={() => updateQuantity(item.id, quantity - 1)}
+            onClick={() =>
+              quantity > 1
+                ? updateQuantity(item.id, quantity - 1)
+                : removeFromCart(item.id)
+            }
             aria-label="Decrease quantity"
-            data-testid="cart-item-decrease"
+            data-testid="cart-item-amount-decrease"
           >
             −
           </button>
@@ -65,7 +69,7 @@ function CartItem({ item }: CartItemProps) {
             className={styles.qtyBtn}
             onClick={() => updateQuantity(item.id, quantity + 1)}
             aria-label="Increase quantity"
-            data-testid="cart-item-increase"
+            data-testid="cart-item-amount-increase"
           >
             +
           </button>
