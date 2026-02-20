@@ -8,12 +8,12 @@ import {
 } from 'react'
 import type { CartItem, SelectedAttribute } from '../types/CartItem'
 import type { Product } from '../types/Product'
-
-function makeCartItemId(productId: string, selectedAttributes: SelectedAttribute[]): string {
-  const attrs = [...selectedAttributes].sort((a, b) => a.id.localeCompare(b.id))
-  const suffix = attrs.length ? JSON.stringify(attrs) : ''
-  return `${productId}${suffix}`
-}
+import {
+  calculateTotal,
+  findCartItem,
+  generateCartItemId,
+  getItemCount,
+} from '../utils/cartHelpers'
 
 interface CartContextValue {
   cartItems: CartItem[]
@@ -21,6 +21,8 @@ interface CartContextValue {
   removeFromCart: (id: string) => void
   updateQuantity: (id: string, quantity: number) => void
   clearCart: () => void
+  itemCount: number
+  total: number
 }
 
 const CartContext = createContext<CartContextValue | null>(null)
@@ -34,14 +36,15 @@ export function CartProvider({ children }: CartProviderProps) {
 
   const addToCart = useCallback(
     (product: Product, quantity: number, selectedAttributes: SelectedAttribute[]) => {
-      const id = makeCartItemId(product.id, selectedAttributes)
       setCartItems((prev) => {
-        const existing = prev.find((item) => item.id === id)
+        const existing = findCartItem(prev, product.id, selectedAttributes)
         if (existing) {
+          const id = existing.id
           return prev.map((item) =>
             item.id === id ? { ...item, quantity: item.quantity + quantity } : item
           )
         }
+        const id = generateCartItemId(product.id, selectedAttributes)
         return [...prev, { id, product, quantity, selectedAttributes }]
       })
     },
@@ -67,7 +70,15 @@ export function CartProvider({ children }: CartProviderProps) {
   }, [])
 
   const value = useMemo<CartContextValue>(
-    () => ({ cartItems, addToCart, removeFromCart, updateQuantity, clearCart }),
+    () => ({
+      cartItems,
+      addToCart,
+      removeFromCart,
+      updateQuantity,
+      clearCart,
+      itemCount: getItemCount(cartItems),
+      total: calculateTotal(cartItems),
+    }),
     [cartItems, addToCart, removeFromCart, updateQuantity, clearCart]
   )
 
