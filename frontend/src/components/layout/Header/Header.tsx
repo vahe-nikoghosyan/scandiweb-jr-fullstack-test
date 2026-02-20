@@ -1,12 +1,19 @@
+import { useEffect } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
+import { useCart } from '../../../context/CartContext'
 import { useCategories } from '../../../hooks/useCategories'
 import styles from './Header.module.css'
 
 function Header() {
   const { categories, loading, error } = useCategories()
+  const { cartItems } = useCart()
   const { pathname } = useLocation()
   const { id: categoryParam } = useParams<{ id: string }>()
   const activeCategoryId = pathname === '/' ? 'all' : categoryParam ?? null
+
+  useEffect(() => {
+    console.log('Cart state:', cartItems)
+  }, [cartItems])
 
   return (
     <header className={styles.header}>
