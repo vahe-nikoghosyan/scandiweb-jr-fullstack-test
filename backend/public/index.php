@@ -12,6 +12,8 @@ use App\Domain\Model\Currency;
 use App\Domain\Model\Price;
 use App\Domain\Model\Product\ConfigurableProduct;
 use App\Domain\Model\Product\SimpleProduct;
+use App\Domain\Factory\AttributeFactory;
+use App\Domain\Factory\ProductFactory;
 use App\Infrastructure\Database\Connection;
 
 $currency = new Currency('USD', '$');
@@ -37,6 +39,38 @@ $swatchAttr = new SwatchAttribute('color', 'Color', $colorItems);
 echo "\nTextAttribute::getType() = " . $textAttr->getType() . ", items = " . count($textAttr->getItems()) . "\n";
 echo "SwatchAttribute::getType() = " . $swatchAttr->getType() . ", items = " . count($swatchAttr->getItems()) . "\n";
 var_dump($textAttr->getItems()[0]->getDisplayValue(), $swatchAttr->getItems()[0]->getValue());
+
+$simpleProduct = ProductFactory::create([
+    'id' => 'test-simple',
+    'name' => 'Test Simple',
+    'in_stock' => true,
+    'category' => ['id' => 'tech', 'name' => 'Technology'],
+    'prices' => [['amount' => 29.99, 'currency_label' => 'USD', 'currency_symbol' => '$']],
+]);
+$configurableProduct = ProductFactory::create([
+    'id' => 'test-config',
+    'name' => 'Test Configurable',
+    'in_stock' => true,
+    'attributes' => ['color' => 'red', 'size' => 'M'],
+    'prices' => [],
+]);
+echo "\nProductFactory (no attributes): " . get_class($simpleProduct) . "\n";
+echo "ProductFactory (with attributes): " . get_class($configurableProduct) . "\n";
+
+$textAttrFromFactory = AttributeFactory::create([
+    'id' => 'size',
+    'name' => 'Size',
+    'type' => 'text',
+    'items' => [['id' => 's-m', 'display_value' => 'M', 'value' => 'M']],
+]);
+$swatchAttrFromFactory = AttributeFactory::create([
+    'id' => 'color',
+    'name' => 'Color',
+    'type' => 'swatch',
+    'items' => [['id' => 'c-red', 'display_value' => 'Red', 'value' => '#ff0000']],
+]);
+echo "AttributeFactory (type=text): " . get_class($textAttrFromFactory) . "\n";
+echo "AttributeFactory (type=swatch): " . get_class($swatchAttrFromFactory) . "\n";
 
 try {
     Connection::getInstance()->getPdo();
