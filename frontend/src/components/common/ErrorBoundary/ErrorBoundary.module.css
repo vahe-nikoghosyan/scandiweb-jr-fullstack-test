@@ -1,0 +1,34 @@
+.root {
+  padding: 2rem;
+  text-align: center;
+  max-width: 480px;
+  margin: 2rem auto;
+}
+
+.title {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.message {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+}
+
+.retry {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+  background: var(--color-primary);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.retry:hover {
+  background: var(--color-primary-hover);
+}

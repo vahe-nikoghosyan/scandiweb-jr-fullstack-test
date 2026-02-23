@@ -6,6 +6,7 @@ namespace App\Infrastructure\GraphQL\Type;
 
 use App\Infrastructure\Database\Connection;
 use App\Infrastructure\GraphQL\Resolver\AttributeResolver;
+use GraphQL\Error\Error;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 
@@ -54,8 +55,20 @@ final class ProductType
                     'attributes' => [
                         'type' => Type::listOf(Type::nonNull(AttributeType::get())),
                         'resolve' => static function (object $product): array {
-                            $resolver = new AttributeResolver(Connection::getInstance());
-                            return $resolver->resolve($product);
+                            try {
+                                $resolver = new AttributeResolver(Connection::getInstance());
+                                return $resolver->resolve($product);
+                            } catch (\Throwable $e) {
+                                throw new Error(
+                                    'Failed to load product attributes.',
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    $e,
+                                    ['code' => 'ATTRIBUTES_ERROR', 'details' => $e->getMessage()]
+                                );
+                            }
                         },
                     ],
                 ],

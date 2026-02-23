@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import ImageGallery from "../../common/ImageGallery/ImageGallery";
 import { useProduct } from "../../../hooks/useProduct";
+import ProductDetailsPageSkeleton from "./ProductDetailsPageSkeleton";
 import AddToCartButton from "./AddToCartButton";
 import ProductDescription from "./ProductDescription";
 import ProductInfo from "./ProductInfo";
@@ -22,9 +23,21 @@ function ProductDetailsPage() {
     });
   };
 
-  if (loading) return <div className={styles.wrap}>Loading…</div>;
-  if (error) return <div className={styles.wrap}>Error loading product.</div>;
-  if (!product) return <div className={styles.wrap}>Product not found.</div>;
+  if (loading) return <ProductDetailsPageSkeleton />;
+  if (error) {
+    return (
+      <div className={styles.wrap} data-testid="pdp-error">
+        <p className={styles.errorMessage}>Error loading product. Please try again.</p>
+      </div>
+    );
+  }
+  if (!product) {
+    return (
+      <div className={styles.wrap} data-testid="pdp-not-found">
+        <p className={styles.errorMessage}>Product not found.</p>
+      </div>
+    );
+  }
 
   const canAddToCart =
     product.inStock &&
