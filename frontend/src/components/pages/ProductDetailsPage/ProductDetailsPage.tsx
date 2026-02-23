@@ -10,7 +10,9 @@ import styles from "./ProductDetailsPage.module.css";
 function ProductDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const { product, loading, error } = useProduct(id);
-  const [selectedAttributes, setSelectedAttributes] = useState<Map<string, string>>(new Map());
+  const [selectedAttributes, setSelectedAttributes] = useState<
+    Map<string, string>
+  >(new Map());
 
   const handleAttributeChange = (attrId: string, value: string) => {
     setSelectedAttributes((prev) => {
@@ -35,7 +37,13 @@ function ProductDetailsPage() {
           <ImageGallery images={product.gallery} alt={product.name} />
         </section>
         <section className={styles.details}>
-          <div data-testid="selected-attributes" data-selected={JSON.stringify(Object.fromEntries(selectedAttributes))} aria-hidden>
+          <div
+            data-testid="selected-attributes"
+            data-selected={JSON.stringify(
+              Object.fromEntries(selectedAttributes),
+            )}
+            aria-hidden
+          >
             {/* Selected state for tests */}
           </div>
           <ProductInfo
