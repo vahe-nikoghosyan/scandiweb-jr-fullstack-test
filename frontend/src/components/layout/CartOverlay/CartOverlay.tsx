@@ -40,19 +40,24 @@ function CartOverlay({ isOpen, onClose }: CartOverlayProps) {
             className={styles.closeBtn}
             onClick={onClose}
             aria-label="Close cart"
+            data-testid="cart-overlay-close"
           >
             ×
           </button>
         </div>
         <ul className={styles.items} data-testid="cart-overlay-items">
           {cartItems.length === 0 ? (
-            <li className={styles.empty}>Your cart is empty.</li>
+            <li className={styles.empty} data-testid="cart-overlay-empty">
+              Your cart is empty.
+            </li>
           ) : (
             cartItems.map((item) => <CartItem key={item.id} item={item} />)
           )}
         </ul>
         <div className={styles.footer}>
-          <CartTotal />
+          <div data-testid="cart-overlay-total">
+            <CartTotal />
+          </div>
           <button
             type="button"
             className={styles.placeOrder}
