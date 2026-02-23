@@ -161,7 +161,9 @@ final class MySQLProductRepository implements ProductRepositoryInterface
             return [];
         }
         $placeholders = implode(',', array_fill(0, count($productIds), '?'));
-        $stmt = $this->pdo->prepare("SELECT product_id, amount, currency_label, currency_symbol FROM prices WHERE product_id IN ($placeholders)");
+        $sql = 'SELECT product_id, amount, currency_label, currency_symbol '
+            . 'FROM prices WHERE product_id IN (' . $placeholders . ')';
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute($productIds);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $byProduct = [];
@@ -213,7 +215,9 @@ final class MySQLProductRepository implements ProductRepositoryInterface
             return [];
         }
         $placeholders = implode(',', array_fill(0, count($productIds), '?'));
-        $stmt = $this->pdo->prepare("SELECT product_id, attribute_id FROM product_attributes WHERE product_id IN ($placeholders)");
+        $sql = 'SELECT product_id, attribute_id FROM product_attributes '
+            . 'WHERE product_id IN (' . $placeholders . ')';
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute($productIds);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $byProduct = [];

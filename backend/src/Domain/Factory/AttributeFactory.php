@@ -12,7 +12,8 @@ use App\Domain\Model\Attribute\TextAttribute;
 final class AttributeFactory
 {
     /**
-     * @param array{id: string, name: string, type: string, items?: list<array{id: string, display_value?: string, value: string}>} $data
+     * @param array{id: string, name: string, type: string,
+     *   items?: list<array{id: string, display_value?: string, value: string}>} $data
      */
     public static function create(array $data): Attribute
     {

@@ -14,7 +14,8 @@ final class PlaceOrderMutation
     }
 
     /**
-     * @param array{input: array{items: list<array{productId: string, quantity: int, selectedAttributes?: array}>}} $args
+     * @param array{input: array{items: list<array{productId: string, quantity: int,
+     *   selectedAttributes?: array}>}} $args
      * @return array{success: bool, orderId: int|null}
      */
     public function resolve(array $args): array

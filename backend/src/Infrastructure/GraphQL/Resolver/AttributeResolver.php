@@ -36,7 +36,9 @@ final class AttributeResolver
         $stmt->execute($attributeIds);
         $attrRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $stmt = $pdo->prepare("SELECT id, attribute_id, display_value, value FROM attribute_items WHERE attribute_id IN ($placeholders) ORDER BY attribute_id");
+        $sql = 'SELECT id, attribute_id, display_value, value FROM attribute_items '
+            . 'WHERE attribute_id IN (' . $placeholders . ') ORDER BY attribute_id';
+        $stmt = $pdo->prepare($sql);
         $stmt->execute($attributeIds);
         $itemRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

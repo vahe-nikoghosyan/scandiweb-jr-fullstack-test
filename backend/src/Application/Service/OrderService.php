@@ -16,7 +16,8 @@ final class OrderService
     }
 
     /**
-     * @param array{items: list<array{productId: string, quantity: int, selectedAttributes?: array<string, string>}>} $input
+     * @param array{items: list<array{productId: string, quantity: int,
+     *   selectedAttributes?: array<string, string>}>} $input
      * @return array{success: bool, orderId: int|null}
      */
     public function placeOrder(array $input): array
