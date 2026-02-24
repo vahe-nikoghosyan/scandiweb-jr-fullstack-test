@@ -1,42 +1,48 @@
 .cartButton {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
   margin-left: auto;
   padding: 0.5rem 0.75rem;
   border: none;
   background: none;
   cursor: pointer;
   border-radius: var(--radius);
-  font-size: 0.9rem;
-  font-weight: 500;
   color: var(--color-primary);
   transition: background 0.2s;
+  flex-shrink: 0;
 }
 
 .cartButton:hover {
   background: var(--color-background-alt);
 }
 
-.cartIcon {
-  font-size: 1.25rem;
+.cartIconWrap {
   position: relative;
-}
-
-.bubble {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 1.25rem;
-  height: 1.25rem;
+}
+
+.cartIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: block;
+}
+
+.bubble {
+  position: absolute;
+  top: -0.35rem;
+  right: -0.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.125rem;
+  height: 1.125rem;
   padding: 0 0.25rem;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.7rem;
+  font-weight: 700;
   color: #fff;
   background: var(--color-primary);
   border-radius: 50%;
-}
-
-.text {
-  font-weight: 500;
 }

@@ -1,4 +1,5 @@
 import { useCart } from '../../../context/CartContext'
+import cartIconSrc from '../../../assets/cart-icon.svg'
 import styles from './CartButton.module.css'
 
 interface CartButtonProps {
@@ -7,26 +8,32 @@ interface CartButtonProps {
 
 function CartButton({ onCartClick }: CartButtonProps) {
   const { itemCount } = useCart()
-  const label = itemCount === 1 ? '1 Item' : `${itemCount} Items`
+
+  const ariaLabel = itemCount > 0 ? `Cart, ${itemCount} item${itemCount === 1 ? '' : 's'}` : 'Cart'
 
   return (
     <button
       type="button"
       className={styles.cartButton}
-      aria-label="Cart"
-      title="Cart"
+      aria-label={ariaLabel}
+      title={ariaLabel}
       data-testid="cart-btn"
       onClick={onCartClick}
     >
-      <span className={styles.cartIcon} aria-hidden>
-        🛒
+      <span className={styles.cartIconWrap} aria-hidden>
+        <img
+          src={cartIconSrc}
+          alt=""
+          width={20}
+          height={20}
+          className={styles.cartIcon}
+        />
+        {itemCount > 0 && (
+          <span className={styles.bubble} aria-hidden>
+            {itemCount}
+          </span>
+        )}
       </span>
-      {itemCount > 0 && (
-        <span className={styles.bubble} aria-hidden>
-          {itemCount}
-        </span>
-      )}
-      <span className={styles.text}>{itemCount > 0 ? label : 'Cart'}</span>
     </button>
   )
 }

@@ -1,13 +1,15 @@
 .card {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
   overflow: hidden;
-  background: var(--color-background);
   transition: box-shadow 0.2s;
+  padding: 16px;
 }
 
 .card:hover {
   box-shadow: var(--shadow-md);
+}
+
+.cardOutOfStock .price {
+  color: var(--color-muted);
 }
 
 .link {
@@ -25,26 +27,24 @@
   position: relative;
 }
 
-.imageArea:hover .quickShop {
+.link:hover .quickShop {
   opacity: 1;
 }
 
 .imageWrap {
   position: relative;
   aspect-ratio: 1;
-  background: var(--color-background-alt);
 }
 
 .imageWrapOutOfStock {
   position: relative;
   aspect-ratio: 1;
-  background: var(--color-background-alt);
 }
 
 .imageWrapOutOfStock .image,
 .imageWrapOutOfStock .placeholder {
   filter: grayscale(100%);
-  opacity: 0.7;
+  opacity: 0.65;
 }
 
 .outOfStockOverlay {
@@ -53,10 +53,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.6);
   font-size: 1.125rem;
   font-weight: 600;
-  color: var(--color-primary);
+  color: #5a5a5a;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -79,37 +79,16 @@
 
 .name {
   margin: 0;
-  padding: 1rem 1rem 0;
+  padding-top: 1rem;
   font-size: 1.125rem;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--color-primary);
 }
 
 .price {
   margin: 0;
-  padding: 0.5rem 1rem 1rem;
-  font-size: 1.125rem;
+  padding-top: 0.5rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: var(--color-primary);
-}
-
-.addButton {
-  display: block;
-  width: calc(100% - 2rem);
-  margin: 0 1rem 1rem;
-  padding: 0.875rem 1rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #fff;
-  background: var(--color-primary);
-  border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  transition: background 0.2s;
-}
-
-.addButton:hover {
-  background: var(--color-primary-hover);
 }

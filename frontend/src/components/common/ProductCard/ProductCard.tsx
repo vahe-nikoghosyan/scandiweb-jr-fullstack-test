@@ -1,57 +1,49 @@
-import { Link } from 'react-router-dom'
-import { useCart } from '../../../context/CartContext'
-import type { Product } from '../../../types/Product'
-import { formatPrice } from '../../../utils/priceFormatter'
-import QuickShopButton from './QuickShopButton'
-import styles from './ProductCard.module.css'
+import { Link } from "react-router-dom";
+import type { Product } from "../../../types/Product";
+import { formatPrice } from "../../../utils/priceFormatter";
+import QuickShopButton from "./QuickShopButton";
+import styles from "./ProductCard.module.css";
 
 function toKebabCase(str: string): string {
   return str
     .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^a-z0-9-]/g, '')
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
 }
 
 interface ProductCardProps {
-  product: Product
+  product: Product;
 }
 
 function ProductCard({ product }: ProductCardProps) {
-  const { addToCart } = useCart()
-  const imageUrl = product.gallery[0] ?? ''
-  const price = product.prices[0]
+  const imageUrl = product.gallery[0] ?? "";
+  const price = product.prices[0];
   const priceLabel = price
     ? formatPrice(price.amount, price.currency.symbol)
-    : ''
-  const testId = `product-${toKebabCase(product.name)}`
-  const inStock = product.inStock
-
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    if (!inStock) return
-    addToCart(product, 1, [])
-  }
+    : "";
+  const testId = `product-${toKebabCase(product.name)}`;
+  const inStock = product.inStock;
 
   return (
     <article
-      className={styles.card}
+      className={`${styles.card} ${!inStock ? styles.cardOutOfStock : ""}`.trim()}
       data-testid={testId}
     >
       <Link to={`/product/${product.id}`} className={styles.link}>
         <div className={styles.imageArea}>
-          <div className={inStock ? styles.imageWrap : styles.imageWrapOutOfStock}>
+          <div
+            className={inStock ? styles.imageWrap : styles.imageWrapOutOfStock}
+          >
             {imageUrl ? (
-              <img
-                src={imageUrl}
-                alt={product.name}
-                className={styles.image}
-              />
+              <img src={imageUrl} alt={product.name} className={styles.image} />
             ) : (
               <div className={styles.placeholder}>No image</div>
             )}
             {!inStock && (
-              <span className={styles.outOfStockOverlay} data-testid="out-of-stock-overlay">
+              <span
+                className={styles.outOfStockOverlay}
+                data-testid="out-of-stock-overlay"
+              >
                 OUT OF STOCK
               </span>
             )}
@@ -66,18 +58,8 @@ function ProductCard({ product }: ProductCardProps) {
         <h2 className={styles.name}>{product.name}</h2>
         <p className={styles.price}>{priceLabel}</p>
       </Link>
-      {inStock && (
-        <button
-          type="button"
-          className={styles.addButton}
-          onClick={handleAddToCart}
-          data-testid="add-to-cart"
-        >
-          Add to cart
-        </button>
-      )}
     </article>
-  )
+  );
 }
 
-export default ProductCard
+export default ProductCard;
