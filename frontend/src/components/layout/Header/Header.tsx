@@ -23,7 +23,7 @@ function Header() {
     pathname === "/"
       ? "all"
       : pathname.startsWith("/category/")
-        ? pathname.replace(/^\/category\//, "").split("/")[0] ?? null
+        ? (pathname.replace(/^\/category\//, "").split("/")[0] ?? null)
         : null;
 
   return (

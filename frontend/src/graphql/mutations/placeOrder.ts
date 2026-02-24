@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from "@apollo/client";
 
 export const PLACE_ORDER = gql`
   mutation PlaceOrder($input: OrderInput!) {
@@ -7,4 +7,4 @@ export const PLACE_ORDER = gql`
       orderId
     }
   }
-`
+`;

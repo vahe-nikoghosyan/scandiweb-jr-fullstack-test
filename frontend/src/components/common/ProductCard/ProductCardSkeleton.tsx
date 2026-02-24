@@ -1,5 +1,5 @@
-import Skeleton from '../Skeleton/Skeleton'
-import styles from './ProductCardSkeleton.module.css'
+import Skeleton from "../Skeleton/Skeleton";
+import styles from "./ProductCardSkeleton.module.css";
 
 function ProductCardSkeleton() {
   return (
@@ -9,7 +9,7 @@ function ProductCardSkeleton() {
       <Skeleton className={styles.price} />
       <Skeleton className={styles.button} />
     </article>
-  )
+  );
 }
 
-export default ProductCardSkeleton
+export default ProductCardSkeleton;

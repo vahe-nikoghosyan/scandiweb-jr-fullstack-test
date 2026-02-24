@@ -1,13 +1,13 @@
-import type { Product } from './Product'
+import type { Product } from "./Product";
 
 export interface SelectedAttribute {
-  id: string
-  value: string
+  id: string;
+  value: string;
 }
 
 export interface CartItem {
-  id: string
-  product: Product
-  quantity: number
-  selectedAttributes: SelectedAttribute[]
+  id: string;
+  product: Product;
+  quantity: number;
+  selectedAttributes: SelectedAttribute[];
 }

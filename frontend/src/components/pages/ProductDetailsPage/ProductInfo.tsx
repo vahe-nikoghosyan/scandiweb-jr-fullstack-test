@@ -1,15 +1,19 @@
-import AttributeSelector from '../../common/AttributeSelector/AttributeSelector'
-import type { Product } from '../../../types/Product'
-import styles from './ProductInfo.module.css'
+import AttributeSelector from "../../common/AttributeSelector/AttributeSelector";
+import type { Product } from "../../../types/Product";
+import styles from "./ProductInfo.module.css";
 
 interface ProductInfoProps {
-  product: Product
-  selectedAttributes: Map<string, string>
-  onAttributeChange: (attrId: string, value: string) => void
+  product: Product;
+  selectedAttributes: Map<string, string>;
+  onAttributeChange: (attrId: string, value: string) => void;
 }
 
-function ProductInfo({ product, selectedAttributes, onAttributeChange }: ProductInfoProps) {
-  const attributes = product.attributes ?? []
+function ProductInfo({
+  product,
+  selectedAttributes,
+  onAttributeChange,
+}: ProductInfoProps) {
+  const attributes = product.attributes ?? [];
 
   return (
     <div className={styles.root} data-testid="product-info">
@@ -23,7 +27,7 @@ function ProductInfo({ product, selectedAttributes, onAttributeChange }: Product
         />
       ))}
     </div>
-  )
+  );
 }
 
-export default ProductInfo
+export default ProductInfo;

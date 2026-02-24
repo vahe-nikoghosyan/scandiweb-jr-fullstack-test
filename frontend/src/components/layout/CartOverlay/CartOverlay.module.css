@@ -47,7 +47,9 @@
   cursor: pointer;
   color: var(--color-muted);
   border-radius: var(--radius);
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
 .closeBtn:hover {

@@ -14,7 +14,9 @@
   cursor: pointer;
   background: var(--color-background);
   color: var(--color-primary);
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
 .btn:hover {

@@ -1,9 +1,9 @@
-import { useQuery } from '@apollo/client'
-import { GET_PRODUCTS } from '../graphql/queries/getProducts'
-import type { Product } from '../types/Product'
+import { useQuery } from "@apollo/client";
+import { GET_PRODUCTS } from "../graphql/queries/getProducts";
+import type { Product } from "../types/Product";
 
 interface GetProductsData {
-  products: Product[]
+  products: Product[];
 }
 
 /**
@@ -11,13 +11,13 @@ interface GetProductsData {
  * @param categoryId - When undefined or 'all', returns all products. Otherwise filters by category.
  */
 export function useProducts(categoryId?: string | null) {
-  const { data, loading, error } = useQuery<GetProductsData>(GET_PRODUCTS)
-  const allProducts = data?.products ?? []
+  const { data, loading, error } = useQuery<GetProductsData>(GET_PRODUCTS);
+  const allProducts = data?.products ?? [];
 
   const products =
-    categoryId && categoryId !== 'all'
+    categoryId && categoryId !== "all"
       ? allProducts.filter((p) => p.category?.id === categoryId)
-      : allProducts
+      : allProducts;
 
-  return { products, loading, error }
+  return { products, loading, error };
 }

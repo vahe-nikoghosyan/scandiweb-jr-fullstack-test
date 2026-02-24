@@ -1,34 +1,34 @@
-import { useState } from 'react'
-import styles from './ImageGallery.module.css'
+import { useState } from "react";
+import styles from "./ImageGallery.module.css";
 
 interface ImageGalleryProps {
-  images: string[]
-  alt?: string
+  images: string[];
+  alt?: string;
 }
 
-function ImageGallery({ images, alt = '' }: ImageGalleryProps) {
-  const [selectedIndex, setSelectedIndex] = useState(0)
-  const hasImages = images.length > 0
-  const mainSrc = hasImages ? images[selectedIndex] : ''
-  const canPrev = hasImages && images.length > 1
-  const canNext = hasImages && images.length > 1
+function ImageGallery({ images, alt = "" }: ImageGalleryProps) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const hasImages = images.length > 0;
+  const mainSrc = hasImages ? images[selectedIndex] : "";
+  const canPrev = hasImages && images.length > 1;
+  const canNext = hasImages && images.length > 1;
 
   const goPrev = () => {
-    if (!canPrev) return
-    setSelectedIndex((i) => (i === 0 ? images.length - 1 : i - 1))
-  }
+    if (!canPrev) return;
+    setSelectedIndex((i) => (i === 0 ? images.length - 1 : i - 1));
+  };
 
   const goNext = () => {
-    if (!canNext) return
-    setSelectedIndex((i) => (i === images.length - 1 ? 0 : i + 1))
-  }
+    if (!canNext) return;
+    setSelectedIndex((i) => (i === images.length - 1 ? 0 : i + 1));
+  };
 
   if (!hasImages) {
     return (
       <div className={styles.root} data-testid="product-gallery">
         <div className={styles.placeholder}>No images</div>
       </div>
-    )
+    );
   }
 
   return (
@@ -76,7 +76,7 @@ function ImageGallery({ images, alt = '' }: ImageGalleryProps) {
         </button>
       </div>
     </div>
-  )
+  );
 }
 
-export default ImageGallery
+export default ImageGallery;

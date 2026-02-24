@@ -1,21 +1,27 @@
-import { useCart } from '../../../context/CartContext'
-import type { Product } from '../../../types/Product'
-import styles from './AddToCartButton.module.css'
+import { useCart } from "../../../context/CartContext";
+import type { Product } from "../../../types/Product";
+import styles from "./AddToCartButton.module.css";
 
 interface AddToCartButtonProps {
-  disabled?: boolean
-  product: Product
-  selectedAttributes: Map<string, string>
+  disabled?: boolean;
+  product: Product;
+  selectedAttributes: Map<string, string>;
 }
 
-function AddToCartButton({ disabled = false, product, selectedAttributes }: AddToCartButtonProps) {
-  const { addToCart, openCartOverlay } = useCart()
+function AddToCartButton({
+  disabled = false,
+  product,
+  selectedAttributes,
+}: AddToCartButtonProps) {
+  const { addToCart, openCartOverlay } = useCart();
 
   const handleClick = () => {
-    const selected = Array.from(selectedAttributes.entries()).map(([id, value]) => ({ id, value }))
-    addToCart(product, 1, selected)
-    openCartOverlay()
-  }
+    const selected = Array.from(selectedAttributes.entries()).map(
+      ([id, value]) => ({ id, value })
+    );
+    addToCart(product, 1, selected);
+    openCartOverlay();
+  };
 
   return (
     <button
@@ -28,7 +34,7 @@ function AddToCartButton({ disabled = false, product, selectedAttributes }: AddT
     >
       Add to cart
     </button>
-  )
+  );
 }
 
-export default AddToCartButton
+export default AddToCartButton;

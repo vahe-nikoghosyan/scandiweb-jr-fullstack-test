@@ -1,21 +1,21 @@
-import { Component, type ErrorInfo, type ReactNode } from 'react'
-import styles from './ErrorBoundary.module.css'
+import { Component, type ErrorInfo, type ReactNode } from "react";
+import styles from "./ErrorBoundary.module.css";
 
 interface Props {
-  children: ReactNode
-  fallback?: ReactNode
+  children: ReactNode;
+  fallback?: ReactNode;
 }
 
 interface State {
-  hasError: boolean
-  error: Error | null
+  hasError: boolean;
+  error: Error | null;
 }
 
 class ErrorBoundary extends Component<Props, State> {
-  state: State = { hasError: false, error: null }
+  state: State = { hasError: false, error: null };
 
   static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error }
+    return { hasError: true, error };
   }
 
   componentDidCatch(_error: Error, _errorInfo: ErrorInfo) {
@@ -24,7 +24,7 @@ class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError && this.state.error) {
-      if (this.props.fallback) return this.props.fallback
+      if (this.props.fallback) return this.props.fallback;
       return (
         <div className={styles.root} data-testid="error-boundary">
           <h2 className={styles.title}>Something went wrong</h2>
@@ -38,10 +38,10 @@ class ErrorBoundary extends Component<Props, State> {
             Try again
           </button>
         </div>
-      )
+      );
     }
-    return this.props.children
+    return this.props.children;
   }
 }
 
-export default ErrorBoundary
+export default ErrorBoundary;

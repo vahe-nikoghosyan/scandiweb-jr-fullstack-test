@@ -1,15 +1,18 @@
-import { useCart } from '../../../context/CartContext'
-import cartIconSrc from '../../../assets/cart-icon.svg'
-import styles from './CartButton.module.css'
+import { useCart } from "../../../context/CartContext";
+import cartIconSrc from "../../../assets/cart-icon.svg";
+import styles from "./CartButton.module.css";
 
 interface CartButtonProps {
-  onCartClick?: () => void
+  onCartClick?: () => void;
 }
 
 function CartButton({ onCartClick }: CartButtonProps) {
-  const { itemCount } = useCart()
+  const { itemCount } = useCart();
 
-  const ariaLabel = itemCount > 0 ? `Cart, ${itemCount} item${itemCount === 1 ? '' : 's'}` : 'Cart'
+  const ariaLabel =
+    itemCount > 0
+      ? `Cart, ${itemCount} item${itemCount === 1 ? "" : "s"}`
+      : "Cart";
 
   return (
     <button
@@ -35,7 +38,7 @@ function CartButton({ onCartClick }: CartButtonProps) {
         )}
       </span>
     </button>
-  )
+  );
 }
 
-export default CartButton
+export default CartButton;

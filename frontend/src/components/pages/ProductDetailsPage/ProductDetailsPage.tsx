@@ -27,7 +27,9 @@ function ProductDetailsPage() {
   if (error) {
     return (
       <div className={styles.wrap} data-testid="pdp-error">
-        <p className={styles.errorMessage}>Error loading product. Please try again.</p>
+        <p className={styles.errorMessage}>
+          Error loading product. Please try again.
+        </p>
       </div>
     );
   }
@@ -53,7 +55,7 @@ function ProductDetailsPage() {
           <div
             data-testid="selected-attributes"
             data-selected={JSON.stringify(
-              Object.fromEntries(selectedAttributes),
+              Object.fromEntries(selectedAttributes)
             )}
             aria-hidden
           >

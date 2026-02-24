@@ -27,7 +27,9 @@ function ProductListPage() {
   if (error) {
     return (
       <div className={styles.wrap} data-testid="plp-error">
-        <p className={styles.errorMessage}>Error loading products. Please try again.</p>
+        <p className={styles.errorMessage}>
+          Error loading products. Please try again.
+        </p>
       </div>
     );
   }

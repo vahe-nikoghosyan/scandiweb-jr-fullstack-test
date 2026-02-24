@@ -1,32 +1,32 @@
-import { useCart } from '../../../context/CartContext'
-import type { CartItem as CartItemType } from '../../../types/CartItem'
-import { formatPrice } from '../../../utils/priceFormatter'
-import { getSwatchStyle, toKebab } from '../../../utils/attributeHelpers'
-import styles from './CartItem.module.css'
+import { useCart } from "../../../context/CartContext";
+import type { CartItem as CartItemType } from "../../../types/CartItem";
+import { formatPrice } from "../../../utils/priceFormatter";
+import { getSwatchStyle, toKebab } from "../../../utils/attributeHelpers";
+import styles from "./CartItem.module.css";
 
 interface CartItemProps {
-  item: CartItemType
+  item: CartItemType;
 }
 
 function CartItem({ item }: CartItemProps) {
-  const { updateQuantity, removeFromCart } = useCart()
-  const { product, quantity } = item
-  const imageUrl = product.gallery[0] ?? ''
-  const price = product.prices[0]
+  const { updateQuantity, removeFromCart } = useCart();
+  const { product, quantity } = item;
+  const imageUrl = product.gallery[0] ?? "";
+  const price = product.prices[0];
   const priceLabel = price
     ? formatPrice(price.amount, price.currency.symbol)
-    : ''
+    : "";
 
   const getAttributeInfo = (attrId: string, value: string) => {
-    const attr = product.attributes?.find((a) => a.id === attrId)
-    if (!attr) return { name: attrId, displayValue: value, type: 'text' }
-    const itemOption = attr.items.find((i) => i.value === value)
+    const attr = product.attributes?.find((a) => a.id === attrId);
+    if (!attr) return { name: attrId, displayValue: value, type: "text" };
+    const itemOption = attr.items.find((i) => i.value === value);
     return {
       name: attr.name,
       displayValue: itemOption?.displayValue ?? value,
-      type: attr.type?.toLowerCase() ?? 'text',
-    }
-  }
+      type: attr.type?.toLowerCase() ?? "text",
+    };
+  };
 
   return (
     <li className={styles.root} data-testid="cart-item">
@@ -41,9 +41,12 @@ function CartItem({ item }: CartItemProps) {
           {item.selectedAttributes.length > 0 && (
             <div className={styles.attributes} aria-label="Selected attributes">
               {item.selectedAttributes.map((sel) => {
-                const { name, displayValue, type } = getAttributeInfo(sel.id, sel.value)
-                const kebab = toKebab(name)
-                const isSwatch = type === 'swatch'
+                const { name, displayValue, type } = getAttributeInfo(
+                  sel.id,
+                  sel.value
+                );
+                const kebab = toKebab(name);
+                const isSwatch = type === "swatch";
                 return (
                   <div
                     key={`${sel.id}-${sel.value}`}
@@ -59,7 +62,7 @@ function CartItem({ item }: CartItemProps) {
                         title={displayValue}
                         aria-hidden
                       >
-                        {displayValue.toLowerCase() === 'white' && (
+                        {displayValue.toLowerCase() === "white" && (
                           <span className={styles.swatchBorder} aria-hidden />
                         )}
                       </span>
@@ -72,7 +75,7 @@ function CartItem({ item }: CartItemProps) {
                       </span>
                     )}
                   </div>
-                )
+                );
               })}
             </div>
           )}
@@ -112,7 +115,7 @@ function CartItem({ item }: CartItemProps) {
         />
       </div>
     </li>
-  )
+  );
 }
 
-export default CartItem
+export default CartItem;

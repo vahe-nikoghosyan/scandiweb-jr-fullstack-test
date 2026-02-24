@@ -1,27 +1,27 @@
-import { useCart } from '../../../context/CartContext'
-import { usePlaceOrder } from '../../../hooks/usePlaceOrder'
-import CartItem from './CartItem'
-import CartTotal from './CartTotal'
-import styles from './CartOverlay.module.css'
+import { useCart } from "../../../context/CartContext";
+import { usePlaceOrder } from "../../../hooks/usePlaceOrder";
+import CartItem from "./CartItem";
+import CartTotal from "./CartTotal";
+import styles from "./CartOverlay.module.css";
 
 interface CartOverlayProps {
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 function CartOverlay({ isOpen, onClose }: CartOverlayProps) {
-  const { cartItems, clearCart } = useCart()
-  const { placeOrder, loading } = usePlaceOrder()
+  const { cartItems, clearCart } = useCart();
+  const { placeOrder, loading } = usePlaceOrder();
   const handlePlaceOrder = async () => {
-    const result = await placeOrder()
+    const result = await placeOrder();
     if (result?.success) {
-      clearCart()
-      window.alert('Order placed successfully!')
-      onClose()
+      clearCart();
+      window.alert("Order placed successfully!");
+      onClose();
     }
-  }
+  };
 
-  if (!isOpen) return null
+  if (!isOpen) return null;
 
   return (
     <>
@@ -65,12 +65,12 @@ function CartOverlay({ isOpen, onClose }: CartOverlayProps) {
             onClick={handlePlaceOrder}
             data-testid="cart-overlay-place-order"
           >
-            {loading ? 'Placing order…' : 'Place order'}
+            {loading ? "Placing order…" : "Place order"}
           </button>
         </div>
       </aside>
     </>
-  )
+  );
 }
 
-export default CartOverlay
+export default CartOverlay;
