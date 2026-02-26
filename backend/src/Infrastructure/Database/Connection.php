@@ -22,7 +22,8 @@ final class Connection
             $dotenv->load();
         }
 
-        $url = $_ENV['MYSQL_URL'] ?? $_ENV['DATABASE_URL'] ?? null;
+        $url = $_ENV['MYSQL_URL'] ?? $_ENV['DATABASE_URL']
+            ?? getenv('MYSQL_URL') ?: getenv('DATABASE_URL') ?: null;
         if ($url !== null && $url !== '') {
             $params = self::parseDatabaseUrl($url);
             if ($params !== null) {
