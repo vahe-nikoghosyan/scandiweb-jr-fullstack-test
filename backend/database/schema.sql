@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS scandiweb_store;
-USE scandiweb_store;
+CREATE DATABASE IF NOT EXISTS railway;
+USE railway;
 
 CREATE TABLE categories (
     id VARCHAR(50) PRIMARY KEY,
