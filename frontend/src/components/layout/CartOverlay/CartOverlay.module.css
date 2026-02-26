@@ -36,6 +36,11 @@
   letter-spacing: 0.02em;
 }
 
+.itemCount {
+  font-weight: 500;
+  text-transform: none;
+}
+
 .closeBtn {
   width: 2.5rem;
   height: 2.5rem;

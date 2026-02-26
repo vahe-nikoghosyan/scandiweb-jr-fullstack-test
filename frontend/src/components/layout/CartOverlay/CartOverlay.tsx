@@ -10,7 +10,7 @@ interface CartOverlayProps {
 }
 
 function CartOverlay({ isOpen, onClose }: CartOverlayProps) {
-  const { cartItems, clearCart } = useCart();
+  const { cartItems, clearCart, itemCount } = useCart();
   const { placeOrder, loading } = usePlaceOrder();
   const handlePlaceOrder = async () => {
     const result = await placeOrder();
@@ -34,7 +34,18 @@ function CartOverlay({ isOpen, onClose }: CartOverlayProps) {
       />
       <aside className={styles.panel} role="dialog" aria-label="Cart">
         <div className={styles.panelHeader}>
-          <h2 className={styles.title}>Cart</h2>
+          <h2 className={styles.title}>
+            My Bag
+            {itemCount > 0 && (
+              <span
+                className={styles.itemCount}
+                data-testid="cart-overlay-item-count"
+              >
+                {" "}
+                ({itemCount} {itemCount === 1 ? "item" : "items"})
+              </span>
+            )}
+          </h2>
           <button
             type="button"
             className={styles.closeBtn}
