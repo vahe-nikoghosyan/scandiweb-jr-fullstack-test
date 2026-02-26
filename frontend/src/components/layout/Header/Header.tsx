@@ -25,9 +25,13 @@ function Header() {
       openCartOverlayRef.current = null;
     };
   }, [openCartOverlayRef]);
+
+  const { pathname } = useLocation();
+  useEffect(() => {
+    setIsCartOpen(false);
+  }, [pathname]);
   const displayCategories =
     categories.length > 0 ? categories : FALLBACK_CATEGORIES;
-  const { pathname } = useLocation();
   const activeCategoryId =
     pathname === "/" || pathname === "/all"
       ? "all"
