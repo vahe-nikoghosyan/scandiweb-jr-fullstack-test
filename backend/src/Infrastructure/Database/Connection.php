@@ -16,8 +16,11 @@ final class Connection
     private function __construct()
     {
         $backendRoot = dirname(__DIR__, 3);
-        $dotenv = Dotenv::createImmutable($backendRoot);
-        $dotenv->load();
+        $envFile = $backendRoot . '/.env';
+        if (file_exists($envFile)) {
+            $dotenv = Dotenv::createImmutable($backendRoot);
+            $dotenv->load();
+        }
 
         $url = $_ENV['MYSQL_URL'] ?? $_ENV['DATABASE_URL'] ?? null;
         if ($url !== null && $url !== '') {
