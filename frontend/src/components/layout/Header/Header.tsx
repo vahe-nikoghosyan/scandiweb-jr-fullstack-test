@@ -20,11 +20,11 @@ function Header() {
   }, [openCartOverlayRef]);
   const { pathname } = useLocation();
   const activeCategoryId =
-    pathname === "/"
+    pathname === "/" || pathname === "/all"
       ? "all"
-      : pathname.startsWith("/category/")
-        ? (pathname.replace(/^\/category\//, "").split("/")[0] ?? null)
-        : null;
+      : pathname.startsWith("/product/")
+        ? null
+        : pathname.replace(/^\//, "").split("/")[0] || null;
 
   return (
     <>
@@ -45,7 +45,7 @@ function Header() {
                   return (
                     <li key={cat.id}>
                       <Link
-                        to={cat.id === "all" ? "/" : `/category/${cat.id}`}
+                        to={cat.id === "all" ? "/all" : `/${cat.id}`}
                         className={
                           isActive
                             ? styles.categoryLinkActive
