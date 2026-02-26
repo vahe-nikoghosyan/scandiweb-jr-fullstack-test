@@ -32,7 +32,12 @@ function CartOverlay({ isOpen, onClose }: CartOverlayProps) {
         aria-label="Close cart"
         data-testid="cart-overlay-backdrop"
       />
-      <aside className={styles.panel} role="dialog" aria-label="Cart">
+      <aside
+        className={styles.panel}
+        role="dialog"
+        aria-label="Cart"
+        data-testid="cart-overlay"
+      >
         <div className={styles.panelHeader}>
           <h2 className={styles.title}>
             My Bag

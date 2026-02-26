@@ -7,6 +7,12 @@ import { useCategories } from "../../../hooks/useCategories";
 import logoSrc from "../../../assets/logo.svg";
 import styles from "./Header.module.css";
 
+const FALLBACK_CATEGORIES = [
+  { id: "all", name: "all" },
+  { id: "clothes", name: "clothes" },
+  { id: "tech", name: "tech" },
+];
+
 function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { openCartOverlayRef } = useCart();
@@ -18,6 +24,8 @@ function Header() {
       openCartOverlayRef.current = null;
     };
   }, [openCartOverlayRef]);
+  const displayCategories =
+    categories.length > 0 ? categories : FALLBACK_CATEGORIES;
   const { pathname } = useLocation();
   const activeCategoryId =
     pathname === "/" || pathname === "/all"
@@ -32,15 +40,15 @@ function Header() {
         <nav className={styles.nav}>
           <div className={styles.navLeft}>
             <ul className={styles.categories}>
-              {loading && <li className={styles.categoryMuted}>Loading…</li>}
+              {loading && displayCategories === FALLBACK_CATEGORIES && (
+                <li className={styles.categoryMuted}>Loading…</li>
+              )}
               {error && (
                 <li className={styles.categoryMuted}>
                   Error loading categories
                 </li>
               )}
-              {!loading &&
-                !error &&
-                categories.map((cat) => {
+              {displayCategories.map((cat) => {
                   const isActive = activeCategoryId === cat.id;
                   return (
                     <li key={cat.id}>
