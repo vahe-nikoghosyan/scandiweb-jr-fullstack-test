@@ -92,7 +92,7 @@
 | Functional component | ✅ | `function CartOverlay({ isOpen, onClose })` |
 | Styling | ✅ | `CartOverlay.module.css` (CSS Modules) |
 | GraphQL | ✅ | Uses `usePlaceOrder()` (Apollo `useMutation`) for placing orders |
-| Role | ✅ | Renders slide-over panel with `CartItem` list, `CartTotal`, and “Place order” button; uses `CartContext` for cart state; closes on successful order |
+| Role | ✅ | Renders slide-over panel with `CartItem` list, `CartTotal`, and "Place order" button; uses `CartContext` for cart state; closes on successful order |
 
 ---
 
@@ -112,26 +112,17 @@
 
 | Attribute / Behavior | Found | Status | Notes |
 |----------------------|-------|--------|-------|
-| `category-link` | Yes | ✅ | Header.tsx: `data-testid={isActive ? "active-category-link" : "category-link"}` |
-| `active-category-link` | Yes | ✅ | Same location; shown when category is active |
-| `product-${product name in kebab case}` | Yes | ✅ | ProductCard.tsx: `data-testid={testId}` where `testId = product-${toKebabCase(product.name)}` (e.g. `product-nike-air-huarache-le`) |
-| `cart-btn` | Yes | ✅ | CartButton.tsx: `data-testid="cart-btn"` |
-| `cart-total` | Yes | ✅ | CartTotal.tsx: `data-testid="cart-total"` |
-| `product-gallery` | Yes | ✅ | ImageGallery.tsx: `data-testid="product-gallery"` |
-| `product-description` | Yes | ✅ | ProductDescription.tsx: `data-testid="product-description"` |
-| `add-to-cart` | Yes | ✅ | AddToCartButton.tsx (PDP) and QuickShopButton.tsx (PLP): both use `data-testid="add-to-cart"` |
-| `product-info` | Yes | ✅ | ProductInfo.tsx: `data-testid="product-info"` |
-| `cart-overlay-backdrop` | Yes | ✅ | CartOverlay.tsx: backdrop button |
-| `cart-overlay-close` | Yes | ✅ | CartOverlay.tsx: close button |
-| `cart-overlay-items` | Yes | ✅ | CartOverlay.tsx: list of cart items |
-| `cart-overlay-empty` | Yes | ✅ | CartOverlay.tsx: when cart is empty |
-| `cart-overlay-total` | Yes | ✅ | CartOverlay.tsx: wrapper around CartTotal |
-| `cart-overlay-place-order` | Yes | ✅ | CartOverlay.tsx: place order button |
-| `cart-item` | Yes | ✅ | CartItem.tsx |
-| `cart-item-name`, `cart-item-price`, `cart-item-quantity`, etc. | Yes | ✅ | CartItem.tsx: full set of item-level testids |
-| **1 Item / X Items in overlay** | Yes | ✅ | Overlay header shows "Cart (1 item)" or "Cart (X items)" with correct pluralization; `data-testid="cart-overlay-item-count"` |
-| **Page grey-out when overlay opens** | Yes | ✅ | CartOverlay.module.css: `.backdrop` uses `background: rgba(0, 0, 0, 0.5)`, `position: fixed`, `inset: 0`; full viewport overlay when open |
-| **Total logic in overlay** | Yes | ✅ | CartTotal uses `calculateTotal(cartItems)` (sums `price × quantity` per item); formatted as USD currency |
+| `category-link` | Yes | ✅ | Header.tsx |
+| `active-category-link` | Yes | ✅ | Same location |
+| `product-${product name in kebab case}` | Yes | ✅ | ProductCard.tsx |
+| `cart-btn` | Yes | ✅ | CartButton.tsx |
+| `cart-total` | Yes | ✅ | CartTotal.tsx |
+| `product-gallery` | Yes | ✅ | ImageGallery.tsx |
+| `product-description` | Yes | ✅ | ProductDescription.tsx |
+| `add-to-cart` | Yes | ✅ | AddToCartButton.tsx, QuickShopButton.tsx |
+| 1 Item / X Items in overlay | Yes | ✅ | Overlay header |
+| Page grey-out when overlay opens | Yes | ✅ | `.backdrop` |
+| Total logic in overlay | Yes | ✅ | CartTotal |
 
 ---
 

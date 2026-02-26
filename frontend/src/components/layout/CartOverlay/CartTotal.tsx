@@ -1,10 +1,8 @@
 import { useCart } from "../../../context/CartContext";
-import { calculateTotal } from "../../../utils/cartHelpers";
 import styles from "./CartTotal.module.css";
 
 function CartTotal() {
-  const { cartItems } = useCart();
-  const total = calculateTotal(cartItems);
+  const { total } = useCart();
   const formatted = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",

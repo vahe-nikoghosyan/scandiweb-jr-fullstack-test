@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Infrastructure\Database;
 
 use PDO;
-use PDOException;
 use Dotenv\Dotenv;
 
 final class Connection
