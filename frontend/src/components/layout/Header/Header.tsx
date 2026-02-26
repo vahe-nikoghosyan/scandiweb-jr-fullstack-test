@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../../../context/CartContext";
 import CartOverlay from "../CartOverlay/CartOverlay";
 import CartButton from "./CartButton";
@@ -15,6 +15,7 @@ const FALLBACK_CATEGORIES = [
 
 function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const navigate = useNavigate();
   const { openCartOverlayRef } = useCart();
   const { categories, loading, error } = useCategories();
 
@@ -49,11 +50,12 @@ function Header() {
                 </li>
               )}
               {displayCategories.map((cat) => {
+                  const path = cat.id === "all" ? "/all" : `/${cat.id}`;
                   const isActive = activeCategoryId === cat.id;
                   return (
                     <li key={cat.id}>
-                      <Link
-                        to={cat.id === "all" ? "/all" : `/${cat.id}`}
+                      <a
+                        href={path}
                         className={
                           isActive
                             ? styles.categoryLinkActive
@@ -62,9 +64,13 @@ function Header() {
                         data-testid={
                           isActive ? "active-category-link" : "category-link"
                         }
+                        onClick={(e) => {
+                          e.preventDefault();
+                          navigate(path);
+                        }}
                       >
                         {cat.name}
-                      </Link>
+                      </a>
                     </li>
                   );
                 })}
