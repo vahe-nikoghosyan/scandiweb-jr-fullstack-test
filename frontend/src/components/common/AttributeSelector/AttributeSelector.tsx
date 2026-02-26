@@ -35,12 +35,14 @@ function AttributeSelector({
       <span className={styles.label}>{attribute.name}:</span>
       {isSwatch ? (
         <SwatchSelector
+          attributeKebab={kebab}
           items={attribute.items}
           selectedValue={selectedValue}
           onSelect={onSelect}
         />
       ) : (
         <TextSelector
+          attributeKebab={kebab}
           items={attribute.items}
           selectedValue={selectedValue}
           onSelect={onSelect}

@@ -2,12 +2,18 @@ import type { AttributeItem } from "../../../types/Attribute";
 import styles from "./TextSelector.module.css";
 
 interface TextSelectorProps {
+  attributeKebab: string;
   items: AttributeItem[];
   selectedValue: string | undefined;
   onSelect: (value: string) => void;
 }
 
-function TextSelector({ items, selectedValue, onSelect }: TextSelectorProps) {
+function TextSelector({
+  attributeKebab,
+  items,
+  selectedValue,
+  onSelect,
+}: TextSelectorProps) {
   return (
     <div className={styles.root}>
       {items.map((item) => (
@@ -18,7 +24,7 @@ function TextSelector({ items, selectedValue, onSelect }: TextSelectorProps) {
             selectedValue === item.value ? styles.btnActive : styles.btn
           }
           onClick={() => onSelect(item.value)}
-          data-testid={`text-option-${item.value}`}
+          data-testid={`product-attribute-${attributeKebab}-${item.value}`}
         >
           {item.displayValue}
         </button>

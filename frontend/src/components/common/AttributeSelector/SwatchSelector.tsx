@@ -22,12 +22,14 @@ function getSwatchStyle(displayValue: string): CSSProperties {
 }
 
 interface SwatchSelectorProps {
+  attributeKebab: string;
   items: AttributeItem[];
   selectedValue: string | undefined;
   onSelect: (value: string) => void;
 }
 
 function SwatchSelector({
+  attributeKebab,
   items,
   selectedValue,
   onSelect,
@@ -45,7 +47,7 @@ function SwatchSelector({
           onClick={() => onSelect(item.value)}
           title={item.displayValue}
           aria-label={item.displayValue}
-          data-testid={`swatch-option-${item.value}`}
+          data-testid={`product-attribute-${attributeKebab}-${item.value}`}
         >
           {item.displayValue.toLowerCase() === "white" && (
             <span className={styles.border} aria-hidden />
