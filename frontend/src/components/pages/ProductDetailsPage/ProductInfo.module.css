@@ -9,3 +9,10 @@
   line-height: 1.2;
   color: var(--color-primary);
 }
+
+.price {
+  margin: 0 0 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
